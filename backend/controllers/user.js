@@ -18,8 +18,7 @@ exports.signup = (req, res, next) => {
         password: hash,
       });
       /* Saving new user to the database */
-      user
-        .save()
+      user.save()
         .then(() => res.status(201).json({ message: "New user !" }))
         .catch((error) => res.status(400).json({ error }));
     })

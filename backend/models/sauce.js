@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
+const {Schema, model} = require("mongoose");
 var ErrorHandler = require('mongoose-errors');
 
-const sauce = mongoose.Schema({
+// Using 'Schema' to create a sauce model
+const sauce = Schema({
   userId: { type: String, required: true },
   name: { type: String, required: true },
   manufacturer: { type: String, required: true },
@@ -15,6 +16,7 @@ const sauce = mongoose.Schema({
   usersDisliked: [{ type: String }],
 });
 
+// Catching errors
 sauce.plugin(ErrorHandler);
 
-module.exports = mongoose.model("Sauce", sauce);
+module.exports = model("Sauce", sauce);

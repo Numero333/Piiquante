@@ -1,5 +1,5 @@
-const {Schema, model} = require("mongoose");
-var ErrorHandler = require('mongoose-errors');
+const { Schema, model } = require("mongoose");
+var ErrorHandler = require("mongoose-errors");
 
 // Using 'Schema' to create a sauce model
 const sauce = Schema({

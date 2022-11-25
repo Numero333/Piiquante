@@ -6,7 +6,7 @@ const sauceController =  require('../controllers/sauce');
 // Calling 'auth' middleware to authenticate all routes
 const auth = require('../middleware/auth');
 
-// Calling the 'multer' middleware for image files
+// Calling 'multer' middleware for image files management
 const multer = require('../middleware/multer-config');
 
 // All sauce routes

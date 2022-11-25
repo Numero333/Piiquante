@@ -5,13 +5,12 @@ const jwt = require("jsonwebtoken");
 // Import User Model
 const User = require("../models/user");
 
-// Sign Up Fonction : 
+// Function : signup
 exports.signup = (req, res, next) => {
   /* Using 'bcrypt' to encrypt (10 times) password */
   bcrypt
     .hash(req.body.password, 10)
-    /* Take mail in the request + encrypted password
-       and create a new user */
+    /* Create a new user taking mail from request + encrypted password */
     .then((hash) => {
       const user = new User({
         email: req.body.email,
@@ -22,18 +21,18 @@ exports.signup = (req, res, next) => {
         .then(() => res.status(201).json({ message: "New user !" }))
         .catch((error) => res.status(400).json({ error }));
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(401).json({ error }));
 };
 
-// Login Fonction :
+// Function : login
 exports.login = (req, res, next) => {
-  /* Using express method 'findOne' to verify that the user
+  /* Using express method 'findOne' to verify user
      is existing in the database */
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
         return res.status(401).json({
-          message: "Invalid : Username/password"
+          message: "Invalid : Username/password",
         });
       }
       /* Using bcrypt method 'compare' to compare password
@@ -43,7 +42,7 @@ exports.login = (req, res, next) => {
         .then((valid) => {
           if (!valid) {
             return res.status(401).json({
-              message: "Invalid : Username/password"
+              message: "Invalid : Username/password",
             });
           }
           res.status(200).json({
@@ -54,7 +53,7 @@ exports.login = (req, res, next) => {
             }),
           });
         })
-        .catch((err) => res.status(401).json({err}));
+        .catch((err) => res.status(401).json({ err }));
     })
-    .catch((err) => res.status(401).json({err}));
+    .catch((err) => res.status(401).json({ err }));
 };

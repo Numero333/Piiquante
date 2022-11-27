@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const helmet = require("helmet");
 const path = require("path");
 
 // Router
@@ -24,6 +25,8 @@ mongoose
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch((err) => console.log("Connexion à MongoDB échouée ! " + err.message));
 
+// Helmet
+app.use(helmet({crossOriginResourcePolicy: false,}));
 // Parse request into json
 app.use(express.json());
 
@@ -51,3 +54,6 @@ app.use("/api/auth", userRoutes);
 app.use("/api/sauces", sauceRoutes);
 
 module.exports = app;
+
+
+// helmet + module " --save" + mdp char password validator mettre a jour readme

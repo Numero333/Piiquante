@@ -2,11 +2,28 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+var passwordValidator = require("password-validator");
+
+// Config for password validation
+var checkPassword = new passwordValidator();
+
+checkPassword
+  .is()
+    .min(8)
+    .max(128)
+  .has()
+    .uppercase()
+    .symbols()
+    .not().spaces()
+
 // Import User Model
 const User = require("../models/user");
 
 // Function : signup
 exports.signup = (req, res, next) => {
+  if(!checkPassword.validate(req.body.password)) {
+    return res.status(403).json({ error });
+  }
   /* Using 'bcrypt' to encrypt (10 times) password */
   bcrypt
     .hash(req.body.password, 10)

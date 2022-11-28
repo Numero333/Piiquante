@@ -54,6 +54,3 @@ app.use("/api/auth", userRoutes);
 app.use("/api/sauces", sauceRoutes);
 
 module.exports = app;
-
-
-// helmet + module " --save" + mdp char password validator mettre a jour readme

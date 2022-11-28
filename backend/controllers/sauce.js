@@ -42,7 +42,7 @@ exports.createSauce = (req, res, next) => {
   sauce
     .save()
     .then(() => {
-      res.status(201).json({ message: "Sauce " + req.body.sauce + " ajouté" });
+      res.status(201).json({ message: "Sauce ajouté" });
     })
     .catch((err) => {
       res.status(400).json({ error: err });
@@ -63,7 +63,7 @@ exports.deleteSauce = (req, res, next) => {
         unlink(`images/${filename}`, () => {
           Sauce.deleteOne({ _id: req.params.id })
             .then(() => {
-              res.status(200).json({ message: "Supprimé!" + filename });
+              res.status(200).json({ message: "Supprimé!" });
             })
             .catch((err) => {
               res.status(400).json({ error: err });
@@ -128,7 +128,7 @@ exports.likeSauce = (req, res, next) => {
             .then((sauce) =>
               res
                 .status(200)
-                .json({ message: sauce.name + "Liked ! By" + req.body.userId })
+                .json({ message: "Liked !"})
             )
             .catch((error) => res.status(400).json({ error, message: error }));
           break;
@@ -147,8 +147,7 @@ exports.likeSauce = (req, res, next) => {
               res
                 .status(200)
                 .json({
-                  message: sauce.name + "Disliked ! By" + req.body.userId,
-                })
+                  message: "Disliked !"})
             )
             .catch((error) => res.status(400).json({ error }));
           break;
